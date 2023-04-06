@@ -1,0 +1,5 @@
+127.0.0.1       localhost
+172.18.81.54    DS-manager
+172.18.81.55    DS-worker01
+172.18.81.56    DS-worker02
+172.18.81.57    DS-worker03
