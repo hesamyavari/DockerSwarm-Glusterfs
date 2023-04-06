@@ -1,9 +1,11 @@
+# Setup Highly Available applications with Docker Swarm and Gluster
 
-# DockerSwarm-Glusterfs
+A good design pattern for highly available applications is to deploy the application as a container on a Docker Swarm cluster with persistent storage provided by GlusterFS. GlusterFS is a fast shared filesystem that can keep the container volume in sync between multiple VMs running the Docker Swarm cluster. This pattern ensures high availability for your containerised application. In the event a VM dies, Docker Swarm will spin up the container on another VM. GlusterFS will ensure the container has access to the same data when it comes up.
+## DockerSwarm-Glusterfs
 
 -------------
 
-# Create directories for GlusterFS storage
+## Create directories for GlusterFS storage
 
 ```bash
 
@@ -19,7 +21,7 @@
 (DS-Worker03)# mkdir /gluster/bricks/3/brick
 ```
 
-# Peer with other Gluster VMs
+## Peer with other Gluster VMs
 
 Now peer with other nodes from DS-Worker01:
 
@@ -36,7 +38,7 @@ Uuid: 572fed90-61de-40dd-97a6-4255ed8744ce
 State: Peer in Cluster (Connected)
 ```
 
-# Setup the Gluster “replicated volume”
+## Setup the Gluster “replicated volume”
 
 ```bash
 gluster volume create gfs \
@@ -52,13 +54,13 @@ gluster volume info gfs
 
 ```
 
-# Setup security and authentication for this volume
+## Setup security and authentication for this volume
 
 ```bash
 gluster volume set gfs auth.allow 172.18.81.54,172.18.81.55,172.18.81.56,172.18.81.57
 ```
 
-# Mount the glusterFS volume where applications can access the files
+## Mount the glusterFS volume where applications can access the files
 
 We’ll mount the volume onto /mnt on each VM, and also append it to our /etc/fstab file so that it mounts on boot:
 
@@ -71,14 +73,14 @@ We’ll mount the volume onto /mnt on each VM, and also append it to our /etc/fs
 (DS-Worker03)# mount.glusterfs localhost:/gfs /mnt
 ```
 
-# Verify
+## Verify
 
 ```bash
 
 df -Th
 ```
 
-# Setup Docker Swarm
+## Setup Docker Swarm
 
 ## Install docker to All Vms
 
@@ -88,7 +90,7 @@ Initialize Docker swarm from the DS-manager
 docker swarm init --advertise-addr 172.18.81.54
 ```
 
-# Add the three gluster VMs as swarm workers
+## Add the three gluster VMs as swarm workers
 
 ```bash
 DS-Worker01:~# docker swarm join --token SWMTKN-1-4hhr8anw6iik7cg6xcdfr3lpq5szxgwig8r60i0pb3rvw5wtwy-09idizuvok49f7hpl1vymdqg4 172.18.81.54:2377
@@ -105,7 +107,7 @@ ifnzgpk25p27y19vslee4v74x     DS-Worker03            Ready               Active 
 sz42o1yjz08t3x98aj82z33pe *   DS-manager       Ready               Active              Leader              18.09.5
 ```
 
-# Use docker stack to deploy Wordpress and MySQL
+## Use docker stack to deploy Wordpress and MySQL
 
 ```bash
 docker stack deploy -c wordpress.yaml wordpress Ignoring unsupported options: restart
