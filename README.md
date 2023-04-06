@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 # DockerSwarm-Glusterfs
-=======
+-------------
 # Create directories for GlusterFS storage
 
 ```
@@ -101,4 +101,3 @@ sz42o1yjz08t3x98aj82z33pe *   DS-manager       Ready               Active       
 ```
 docker stack deploy -c wordpress.yaml wordpress Ignoring unsupported options: restart
 ```
->>>>>>> de617a1 (add file)
