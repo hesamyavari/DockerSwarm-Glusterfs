@@ -100,11 +100,11 @@ docker swarm init --advertise-addr 172.18.81.54
 ## Add the three gluster VMs as swarm workers
 
 ```bash
-DS-Worker01:~# docker swarm join --token SWMTKN-1-4hhr8anw6iik7cg6xcdfr3lpq5szxgwig8r60i0pb3rvw5wtwy-09idizuvok49f7hpl1vymdqg4 172.18.81.54:2377
+DS-Worker01:~# docker swarm join --token SWMTKN-1-"TOKEN" 172.18.81.54:2377
 This node joined a swarm as a worker.
-DS-Worker02:~# docker swarm join --token SWMTKN-1-4hhr8anw6iik7cg6xcdfr3lpq5szxgwig8r60i0pb3rvw5wtwy-09idizuvok49f7hpl1vymdqg4 172.18.81.54:2377
+DS-Worker02:~# docker swarm join --token SWMTKN-1-"TOKEN" 172.18.81.54:2377
 This node joined a swarm as a worker.
-DS-Worker03:~# docker swarm join --token SWMTKN-1-4hhr8anw6iik7cg6xcdfr3lpq5szxgwig8r60i0pb3rvw5wtwy-09idizuvok49f7hpl1vymdqg4 172.18.81.54:2377
+DS-Worker03:~# docker swarm join --token SWMTKN-1-"TOKEN" 172.18.81.54:2377
 This node joined a swarm as a worker.
 DS-manager:~# docker node ls
 ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
